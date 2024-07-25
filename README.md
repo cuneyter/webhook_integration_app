@@ -1,24 +1,34 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## About the Application
+This is an experimental Ruby on Rails application to build robust, extendable and scalable webhook handling system. The application is designed to handle the webhook request in a background job so the request is not blocking the main thread.
 
-Things you may want to cover:
+## Requirements to Run the Application
+You'll need the following installed
 
-* Ruby version
+* Ruby version: 3.3.3
+* bundler - `gem install bundler`
+* PostgreSQL needs to be installed
+  * PostgreSQL - `brew install postgresql` or `sudo apt-get install postgresql`
 
-* System dependencies
+## Setting Up
 
-* Configuration
+To setup the application, run `./bin/setup` after installing the requirements.
 
-* Database creation
+```bash
+bin/setup
+```
 
-* Database initialization
+## Running the Application
 
-* How to run the test suite
+To start the application, use the following command:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+bin/dev
+```
 
-* Deployment instructions
+To run the tests, use the following command:
 
-* ...
+```bash
+rspec
+```
