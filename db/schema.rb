@@ -10,8 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 0) do
+ActiveRecord::Schema[7.2].define(version: 2024_07_25_223324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "inbound_webhooks", force: :cascade do |t|
+    t.string "event", null: false
+    t.integer "status", default: 0, null: false
+    t.jsonb "payload", null: false
+    t.string "controller_name", null: false
+    t.text "error_message"
+    t.string "source_ip"
+    t.string "inbound_webhook_id"
+    t.datetime "processed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event"], name: "index_inbound_webhooks_on_event"
+    t.index ["inbound_webhook_id"], name: "index_inbound_webhooks_on_inbound_webhook_id", unique: true
+    t.index ["status"], name: "index_inbound_webhooks_on_status"
+  end
 end
