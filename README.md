@@ -3,6 +3,12 @@
 ## About the Application
 This is an experimental Ruby on Rails application to build robust, extendable and scalable webhook handling system. The application is designed to handle the webhook request in a background job so the request is not blocking the main thread.
 
+### InboundWebhook Model
+The InboundWebhook model is used to store the webhook data and monitor the status of the webhook. Also, it is used to save the error message if the webhook request fails.
+
+### InboundWebhooks::ApplicationController
+The InboundWebhooks::ApplicationController is used to handle the common methods for the InboundWebhooks controllers. This controller is inherited by all the InboundWebhooks controllers. 
+
 ## Requirements to Run the Application
 You'll need the following installed
 
