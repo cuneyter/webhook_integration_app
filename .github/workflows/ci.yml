@@ -24,6 +24,7 @@ jobs:
         run: |
           gem install bundler
           bundle install
+          bundle update net-pop
 
       - name: Scan for security vulnerabilities in Ruby dependencies
         run: bin/brakeman --no-pager
@@ -105,6 +106,7 @@ jobs:
         run: |
           gem install bundler
           bundle install
+          bundle update net-pop
 
       - name: Run tests
         env:
