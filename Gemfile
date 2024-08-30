@@ -39,7 +39,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # HTTP/REST API client library.
-gem "faraday", "~> 2.10"
+gem "faraday", "~> 2.11"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
