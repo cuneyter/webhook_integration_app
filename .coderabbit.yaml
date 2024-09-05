@@ -6,8 +6,8 @@ reviews:
   profile: "chill"
   request_changes_workflow: false
   high_level_summary: true
-  high_level_summary_placeholder: '@coderabbitai summary'
-  auto_title_placeholder: '@coderabbitai'
+  high_level_summary_placeholder: 'PR summary'
+  auto_title_placeholder: 'PR title'
   review_status: true
   poem: false
   collapse_walkthrough: true
@@ -71,4 +71,3 @@ knowledge_base:
     project_keys: []
   linear:
     team_keys: []
-    
