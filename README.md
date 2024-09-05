@@ -15,7 +15,7 @@ The Integrations::HttpClient is used to make the HTTP request to the relevant AP
 ## Requirements to Run the Application
 You'll need the following installed
 
-* Ruby version: 3.3.3
+* Ruby version: 3.3.4
 * bundler - `gem install bundler`
 * PostgreSQL needs to be installed
   * PostgreSQL - `brew install postgresql` or `sudo apt-get install postgresql`
