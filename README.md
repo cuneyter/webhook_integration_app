@@ -6,11 +6,14 @@ This is a Ruby on Rails application to build a robust, extendable and scalable w
 ### InboundWebhook Model
 The InboundWebhook model is used to store the webhook data and monitor the status of the webhook. Also, it is used to save the error message if the webhook request fails.
 
+### Integrations::HttpClient
+The Integrations::HttpClient is used to make the HTTP request to the relevant API. This class is used to make the HTTP request in the background job. It is designed to handle the response and error while making the request.
+
 ### InboundWebhooks::ApplicationController
 The InboundWebhooks::ApplicationController is used to handle the common methods for the InboundWebhooks controllers. This controller is inherited by all the InboundWebhooks controllers. 
 
-### Integrations::HttpClient
-The Integrations::HttpClient is used to make the HTTP request to the relevant API. This class is used to make the HTTP request in the background job. It is designed to handle the response and error while making the request.
+### InboundWebhooks::GithubController
+The InboundWebhooks::GithubController is used to handle the webhook request from the Github API. This controller is used to save the webhook data and call the background handler job to process the webhook request.
 
 ## Requirements to Run the Application
 You'll need the following installed
