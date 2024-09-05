@@ -11,4 +11,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root to: "application#index"
+
+  namespace :inbound_webhooks do
+    resources :github, only: [ :create ]
+  end
 end

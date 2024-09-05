@@ -33,8 +33,15 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials/development.key
 
+# Ignore custom hmac_header_generator.rb
+/hmac_header_generator.rb
+
+# Ignore assets
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Ignore IDE files
 .idea
 .vscode
