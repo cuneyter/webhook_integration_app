@@ -21,7 +21,7 @@
 #  index_inbound_webhooks_on_status              (status)
 #
 class InboundWebhook < ApplicationRecord
-  enum :status, %i[pending processing processed failed unhandled]
+  enum :status, %i[pending processing processed failed unhandled], validate: true
 
   validates :event, :status, :payload, :controller_name, presence: true
   validates :inbound_webhook_id, uniqueness: true, allow_nil: true
