@@ -9,7 +9,7 @@
 #  payload            :jsonb            not null
 #  processed_at       :datetime
 #  source_ip          :string
-#  status             :integer          default("pending"), not null
+#  status             :string           default("pending"), not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  inbound_webhook_id :string
@@ -21,7 +21,13 @@
 #  index_inbound_webhooks_on_status              (status)
 #
 class InboundWebhook < ApplicationRecord
-  enum :status, %i[pending processing processed failed unhandled], validate: true
+  enum status: {
+    pending: "pending",
+    processing: "processing",
+    processed: "processed",
+    failed: "failed",
+    unhandled: "unhandled"
+  }, _default: "pending"
 
   validates :event, :status, :payload, :controller_name, presence: true
   validates :inbound_webhook_id, uniqueness: true, allow_nil: true

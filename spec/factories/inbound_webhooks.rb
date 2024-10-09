@@ -9,7 +9,7 @@
 #  payload            :jsonb            not null
 #  processed_at       :datetime
 #  source_ip          :string
-#  status             :integer          default("pending"), not null
+#  status             :string           default("pending"), not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  inbound_webhook_id :string
