@@ -5,7 +5,7 @@ module InboundWebhooks
     def create
       if verified_request?
         webhook_record = create_webhook_record
-        webhook_record.processing!
+        webhook_record.status_processing!
 
         # TODO: Add a job to process the webhook
         # InboundWebhooks::Github::HandlerJob.perform_later(webhook_record.id)

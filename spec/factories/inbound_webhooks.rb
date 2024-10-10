@@ -9,7 +9,7 @@
 #  payload            :jsonb            not null
 #  processed_at       :datetime
 #  source_ip          :string
-#  status             :integer          default("pending"), not null
+#  status             :string           default("pending"), not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  inbound_webhook_id :string
@@ -18,7 +18,6 @@
 #
 #  index_inbound_webhooks_on_event               (event)
 #  index_inbound_webhooks_on_inbound_webhook_id  (inbound_webhook_id) UNIQUE
-#  index_inbound_webhooks_on_status              (status)
 #
 FactoryBot.define do
   factory :inbound_webhook do
