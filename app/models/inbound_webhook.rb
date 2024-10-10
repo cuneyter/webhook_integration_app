@@ -18,16 +18,15 @@
 #
 #  index_inbound_webhooks_on_event               (event)
 #  index_inbound_webhooks_on_inbound_webhook_id  (inbound_webhook_id) UNIQUE
-#  index_inbound_webhooks_on_status              (status)
 #
 class InboundWebhook < ApplicationRecord
-  enum status: {
+  enum :status, {
     pending: "pending",
     processing: "processing",
     processed: "processed",
     failed: "failed",
     unhandled: "unhandled"
-  }, _default: "pending"
+  }, default: "pending", prefix: true
 
   validates :event, :status, :payload, :controller_name, presence: true
   validates :inbound_webhook_id, uniqueness: true, allow_nil: true

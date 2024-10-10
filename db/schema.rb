@@ -16,7 +16,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_09_222135) do
 
   create_table "inbound_webhooks", force: :cascade do |t|
     t.string "event", null: false
-    t.string "status", default: "pending", null: false
     t.jsonb "payload", null: false
     t.string "controller_name", null: false
     t.text "error_message"
@@ -25,8 +24,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_09_222135) do
     t.datetime "processed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "pending", null: false
     t.index ["event"], name: "index_inbound_webhooks_on_event"
     t.index ["inbound_webhook_id"], name: "index_inbound_webhooks_on_inbound_webhook_id", unique: true
-    t.index ["status"], name: "index_inbound_webhooks_on_status"
   end
 end

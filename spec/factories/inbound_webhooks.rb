@@ -18,7 +18,6 @@
 #
 #  index_inbound_webhooks_on_event               (event)
 #  index_inbound_webhooks_on_inbound_webhook_id  (inbound_webhook_id) UNIQUE
-#  index_inbound_webhooks_on_status              (status)
 #
 FactoryBot.define do
   factory :inbound_webhook do
