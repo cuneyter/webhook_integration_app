@@ -3,7 +3,6 @@ class ChangeStatusToBeStringInInboundWebhooks < ActiveRecord::Migration[7.2]
     add_column :inbound_webhooks, :status_string, :string, default: "pending", null: false
 
     InboundWebhook.find_each do |webhook|
-      p 'webhook_status:', webhook.status
       webhook.update_column(:status_string, webhook.status.to_s)
     end
 
