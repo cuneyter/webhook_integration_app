@@ -4,7 +4,7 @@
 # It is designed to be included in classes that need to make HTTP requests.
 module Integrations
   module FaradayClient
-    include HttpClientErrors
+    include HttpErrorHanding
 
     # Executes the HTTP request and returns the response.
     # @return [Object] the response object

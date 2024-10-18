@@ -3,7 +3,7 @@
 # This module is used to handle errors that are raised by the HttpClient
 
 module Integrations
-  module HttpClientErrors
+  module HttpErrorHanding
     class ServerError < RuntimeError
       attr_reader :response
 
