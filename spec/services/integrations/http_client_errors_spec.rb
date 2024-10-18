@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require_relative '../../../app/services/integrations/http_error_handing'
+require_relative '../../../app/services/integrations/http_error_handling'
 
-RSpec.describe Integrations::HttpErrorHanding do
+RSpec.describe Integrations::HttpErrorHandling do
   let(:response) { instance_double(Faraday::Response, status: status, body: body) }
   let(:status) { 500 }
   let(:body) { 'Internal Server Error' }
 
-  describe Integrations::HttpErrorHanding::ServerError do
+  describe Integrations::HttpErrorHandling::ServerError do
     subject(:error) { described_class.new(response) }
 
     it 'initializes with a response' do
@@ -20,7 +20,7 @@ RSpec.describe Integrations::HttpErrorHanding do
     end
   end
 
-  describe Integrations::HttpErrorHanding::TimeoutError do
+  describe Integrations::HttpErrorHandling::TimeoutError do
     subject(:error) { described_class.new(response) }
 
     let(:status) { 504 }
@@ -35,7 +35,7 @@ RSpec.describe Integrations::HttpErrorHanding do
     end
   end
 
-  describe Integrations::HttpErrorHanding::ClientError do
+  describe Integrations::HttpErrorHandling::ClientError do
     subject(:error) { described_class.new(response) }
 
     let(:status) { 400 }
