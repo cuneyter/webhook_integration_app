@@ -2,9 +2,8 @@
 
 # HttpClient module is a mixin that provides a common interface for making HTTP requests.
 # It is designed to be included in classes that need to make HTTP requests.
-
 module Integrations
-  module HttpClient
+  module FaradayClient
     include HttpClientErrors
 
     # Executes the HTTP request and returns the response.
