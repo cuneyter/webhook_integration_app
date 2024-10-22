@@ -6,18 +6,18 @@
 
 module Integrations
   class ApiResponse
-    # @return [Integer] the HTTP status code of the response
+    # @return [HTTP::Response::Status] the HTTP status of the response
     attr_reader :status
 
-    # @return [String] the body of the HTTP response
+    # @return [Hash, HTTP::Response::Body] the body of the HTTP response
     attr_reader :body
 
     # @return [String, nil] the error message, if any
     attr_reader :error_message
 
     # Initializes a new ApiResponse object.
-    # @param status [Integer] the HTTP status code of the response
-    # @param body [String] the body of the HTTP response
+    # @param status [HTTP::Response::Status] the HTTP status of the response
+    # @param body [Hash, HTTP::Response::Body] the body of the HTTP response
     # @param error_message [String, nil] the error message, if any
     def initialize(status:, body:, error_message: nil)
       @status = status
@@ -28,7 +28,7 @@ module Integrations
     # Checks if the response is successful (status code in the 200-299 range).
     # @return [Boolean] true if the response is successful, false otherwise
     def success?
-      (200..299).include?(status)
+      status.success?
     end
 
     # Checks if the response is a failure (status code outside the 200-299 range).

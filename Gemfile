@@ -41,6 +41,9 @@ gem "bootsnap", require: false
 # HTTP/REST API client library.
 gem "faraday", "~> 2.12"
 
+# HTTP client library.
+gem "http", "~> 5.2"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

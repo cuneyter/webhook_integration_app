@@ -1,38 +1,19 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require_relative './dummy_http_client'
+require_relative './dummy_faraday_client'
 
-RSpec.describe DummyHttpClient do
+RSpec.describe DummyFaradayClient do
   let(:base_url) { 'https://example.com' }
-  let(:response_body_content) { { key: 'value' }.to_json }
-
-  let(:http_response_body) do
-    instance_double(HTTP::Response::Body, to_s: response_body_content, empty?: false)
-  end
-
-  let(:http_response_status) do
-    instance_double(HTTP::Response::Status, code: status, reason: 'OK', success?: status < 400)
-  end
-
-  let(:http_response) do
-    instance_double(
-      HTTP::Response,
-      code: status,
-      status: http_response_status,
-      body: response_body_content,
-      headers: { 'Content-Type' => 'application/json' }
-    )
-  end
-
-  let(:http_client) { instance_double(HTTP::Client) }
+  let(:response_body) { { key: 'value' }.to_json }
+  let(:faraday_connection) { instance_double(Faraday::Connection) }
+  let(:faraday_response) { instance_double(Faraday::Response, status: status, body: response_body) }
 
   subject(:client) { described_class.new(base_url) }
 
   before do
-    allow(HTTP).to receive(:timeout).and_return(http_client)
-    allow(http_client).to receive(:headers).and_return(http_client)
-    allow(http_client).to receive(:request).and_return(http_response)
+    allow(Faraday).to receive(:new).and_return(faraday_connection)
+    allow(faraday_connection).to receive(:get).and_return(faraday_response)
   end
 
   describe '#execute_request' do
@@ -41,13 +22,13 @@ RSpec.describe DummyHttpClient do
     context 'when the request is successful' do
       it 'returns the response body' do
         response = client.execute_request
-        expect(response.body).to eq(JSON.parse(response_body_content))
+        expect(response.body).to eq(JSON.parse(response_body))
       end
 
       it 'returns a successful response' do
         response = client.execute_request
         expect(response.success?).to be true
-        expect(response.status.code).to eq(200)
+        expect(response.status).to eq(200)
       end
     end
 
@@ -57,26 +38,26 @@ RSpec.describe DummyHttpClient do
 
       it 'raises a ServerError' do
         response = client.execute_request
-        expect(response.error_message).to include('Server error: #[InstanceDouble(HTTP::Response::Status) (anonymous)], {"key":"value"}')
+        expect(response.error_message).to eq('Server error: 500, Internal Server Error')
         expect(response.failure?).to be true
-        expect(response.status.code).to eq(500)
+        expect(response.status).to eq(500)
       end
     end
   end
 
-  xdescribe '#get' do
+  describe '#get' do
     let(:response_body) { { key: 'value' }.to_json }
     let(:status) { 200 }
 
     it 'makes a GET request and returns the response body' do
-      response = client.send(:get, path: '/path')
-      # expect(http_client).to have_received(:get).with('/path', {})
+      response = client.send(:get, '/path')
+      expect(faraday_connection).to have_received(:get).with('/path', {})
       expect(response.status).to eq(200)
       expect(response.body).to eq(JSON.parse(response_body))
     end
   end
 
-  xdescribe '#post' do
+  describe '#post' do
     let(:status) { 201 }
     let(:post_body) { { data: 'example' } }
     let(:formatted_body) { post_body.to_json }
@@ -93,7 +74,7 @@ RSpec.describe DummyHttpClient do
     end
   end
 
-  xdescribe '#put' do
+  describe '#put' do
     let(:status) { 204 }
     let(:put_body) { { data: 'example' } }
     let(:formatted_body) { put_body.to_json }
@@ -110,7 +91,7 @@ RSpec.describe DummyHttpClient do
     end
   end
 
-  xdescribe '#delete' do
+  describe '#delete' do
     let(:status) { 204 }
 
     before do
