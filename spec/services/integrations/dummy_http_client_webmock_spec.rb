@@ -63,4 +63,116 @@ RSpec.describe DummyHttpClient do
       end
     end
   end
+
+  describe '#get' do
+    before do
+      stub_request(:get, "#{base_url}/path")
+        .with(
+          headers: {
+            'Authorization' => 'Bearer token',
+            'Content-Type' => 'application/json'
+          }
+        )
+        .to_return(
+          status: status,
+          body: response_body,
+          headers: { 'Content-Type' => 'application/json' }
+        )
+    end
+
+    it 'makes a GET request and returns the response body' do
+      response = client.send(:get, path: '/path')
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(JSON.parse(response_body))
+    end
+  end
+
+  describe '#post' do
+    let(:status) { 201 }
+    let(:post_body) { { data: 'example' } }
+    let(:response_body) { post_body.to_json }
+
+    before do
+      stub_request(:post, "#{base_url}/path")
+        .with(
+          headers: {
+            'Authorization' => 'Bearer token',
+            'Content-Type' => 'application/json'
+          }
+        )
+        .to_return(
+          status: status,
+          body: response_body,
+          headers: { 'Content-Type' => 'application/json' }
+        )
+    end
+
+    it 'makes a POST request and returns the response body' do
+      response = client.send(:post, path: '/path', body: post_body)
+      expect(response.status).to eq(201)
+      expect(response.body).to eq({ "data"=>"example" })
+    end
+  end
+
+  describe '#put' do
+    let(:status) { 201 }
+    let(:put_body) { { data: 'example' } }
+    let(:response_body) { put_body.to_json }
+
+    before do
+      stub_request(:put, "#{base_url}/path")
+        .with(
+          headers: {
+            'Authorization' => 'Bearer token',
+            'Content-Type' => 'application/json'
+          }
+        )
+        .to_return(
+          status: status,
+          body: response_body,
+          headers: { 'Content-Type' => 'application/json' }
+        )
+    end
+
+    it 'makes a PUT request and returns the response body' do
+      response = client.send(:put, path: '/path', body: put_body)
+      expect(response.status).to eq(201)
+      expect(response.body).to eq({ "data"=>"example" })
+    end
+  end
+
+  describe '#delete' do
+    let(:status) { 204 }
+
+    before do
+      stub_request(:delete, "#{base_url}/path")
+        .with(
+          headers: {
+            'Authorization' => 'Bearer token',
+            'Content-Type' => 'application/json'
+          }
+        )
+        .to_return(
+          status: status,
+          headers: { 'Content-Type' => 'application/json' }
+        )
+    end
+
+    it 'makes a DELETE request and returns the response body' do
+      response = client.send(:delete, path: '/path')
+      expect(response.status).to eq(204)
+      expect(response.body).to eq({})
+    end
+  end
+
+  describe '#format_body' do
+    context 'when content type is application/json' do
+      let(:body) { { key: 'value' } }
+      let(:formatted_body) { body.to_json }
+
+      it 'returns the body as a JSON string' do
+        expect(client.send(:format_body, body)).to eq(formatted_body)
+      end
+    end
+  end
 end
