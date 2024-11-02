@@ -25,7 +25,8 @@ module Integrations
       @error_message = error_message
     end
 
-    # Checks if the response is successful (status code in the 200-299 range).
+    # Checks if the response is successful
+    #  status is an instance of HTTP::Response::Status
     # @return [Boolean] true if the response is successful, false otherwise
     def success?
       status.success?
