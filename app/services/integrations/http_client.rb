@@ -168,7 +168,11 @@ module Integrations
     # @param [StandardError] error the error object
     # @return [ApiResponse] the API response object
     def build_error_response(error)
-      ApiResponse.new(status: error.response.status, body: error.response.body, error_message: error.message)
+      ApiResponse.new(
+        status: error.response.status,
+        body: error.response.body,
+        error_message: error.message
+      )
     end
 
     # Parses the HTTP response body.
