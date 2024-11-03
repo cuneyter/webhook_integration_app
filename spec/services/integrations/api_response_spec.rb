@@ -6,7 +6,7 @@ require_relative '../../../app/services/integrations/api_response'
 RSpec.describe Integrations::ApiResponse do
   subject(:api_response) { described_class.new(status: status, body: body, error_message: error_message) }
 
-  let(:status) { 200 }
+  let(:status) { HTTP::Response::Status.new(200) }
   let(:body) { { key: 'value' } }
   let(:error_message) { nil }
 
@@ -20,15 +20,13 @@ RSpec.describe Integrations::ApiResponse do
 
   describe '#success?' do
     context 'when status is within 200-299 range' do
-      let(:status) { 200 }
-
       it 'returns true' do
         expect(api_response.success?).to be true
       end
     end
 
     context 'when status is outside 200-299 range' do
-      let(:status) { 404 }
+      let(:status) { HTTP::Response::Status.new(404) }
 
       it 'returns false' do
         expect(api_response.success?).to be false
@@ -38,15 +36,13 @@ RSpec.describe Integrations::ApiResponse do
 
   describe '#failure?' do
     context 'when status is within 200-299 range' do
-      let(:status) { 200 }
-
       it 'returns false' do
         expect(api_response.failure?).to be false
       end
     end
 
     context 'when status is outside 200-299 range' do
-      let(:status) { 404 }
+      let(:status) { HTTP::Response::Status.new(404) }
 
       it 'returns true' do
         expect(api_response.failure?).to be true
