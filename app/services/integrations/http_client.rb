@@ -169,8 +169,8 @@ module Integrations
     # @return [ApiResponse] the API response object
     def build_error_response(error)
       ApiResponse.new(
-        status: error.response.status,
-        body: error.response.body,
+        status: error.response&.status || HTTP::Response::Status.new(500),
+        body: error.response&.body || {},
         error_message: error.message
       )
     end

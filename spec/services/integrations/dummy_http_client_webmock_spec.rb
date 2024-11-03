@@ -109,6 +109,9 @@ RSpec.describe DummyHttpClient do
 
     it 'makes a POST request and returns the response body' do
       response = client.send(:post, path: '/path', body: post_body)
+      expect(WebMock)
+        .to have_requested(:post, "#{base_url}/path")
+              .with(body: post_body.to_json)
       expect(response.status).to eq(201)
       expect(response.body).to eq({ "data"=>"example" })
     end
