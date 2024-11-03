@@ -177,14 +177,15 @@ module Integrations
 
     # Parses the HTTP response body.
     # @param [HTTP::Response] response the HTTP response
-    # @return [Hash, HTTP::Response::Body] the parsed response body
+    # @return [Hash, String, HTTP::Response::Body] the parsed response body
     def parse_response(response)
-      return {} if response.body.empty?
+      body = response.body.to_s
+      return {} if body.empty?
 
       if response.headers["Content-Type"]&.include?("application/json")
-        JSON.parse(response.body)
+        JSON.parse(body)
       else
-        response.body
+        body
       end
     rescue JSON::ParserError
       {}

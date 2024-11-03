@@ -59,6 +59,8 @@ RSpec.describe DummyHttpClient do
 
       it 'raises a ServerError' do
         response = client.execute_request
+        expect(response.success?).to be false
+        expect(response.status).to eq(500)
         expect(response.error_message).to eq('Server error: 500 Internal Server Error, Internal Server Error')
       end
     end
