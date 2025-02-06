@@ -68,7 +68,7 @@ group :development do
   gem "annotate"
 
   # Provides security analysis feature.
-  # gem "ruby-lsp-brakeman", require: false
+  gem "ruby-lsp-brakeman", require: false
 end
 
 group :test do
