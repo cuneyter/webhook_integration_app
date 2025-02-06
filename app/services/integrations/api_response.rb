@@ -3,7 +3,6 @@
 # \# ApiResponse class is a simple data object that represents an HTTP response.
 # \# It provides a \#success? method that returns true if the response status is in the 200-299 range.
 # \# It also provides a \#failure? method that returns true if the response status is outside the 200-299 range.
-
 module Integrations
   class ApiResponse
     # @return [HTTP::Response::Status] the HTTP status of the response

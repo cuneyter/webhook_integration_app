@@ -9,7 +9,6 @@ module Integrations
     # Executes the HTTP request and returns the response.
     # @return [ApiResponse] the response object
     def execute_request
-      # binding.break
       @execute_request ||= response
     end
 

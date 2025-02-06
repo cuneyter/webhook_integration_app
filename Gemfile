@@ -19,7 +19,10 @@ gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
+# gem "jbuilder"
+# PropsTemplate is a direct-to-Oj, JBuilder-like DSL for building JSON.
+# It has support for Russian-Doll caching, layouts, and can be queried by giving the root a key path.
+gem "props_template", "~> 0.37.0"
 # Use Redis adapter to run Action Cable in production
 gem "redis", ">= 4.0.1"
 
@@ -63,6 +66,9 @@ group :development do
 
   # Add a comment summarizing the current schema
   gem "annotate"
+
+  # Provides security analysis feature.
+  # gem "ruby-lsp-brakeman", require: false
 end
 
 group :test do
