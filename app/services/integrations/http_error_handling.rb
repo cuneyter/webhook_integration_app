@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # This module is used to handle errors that are raised by the HttpClient
-
 module Integrations
   module HttpErrorHandling
     class ServerError < RuntimeError

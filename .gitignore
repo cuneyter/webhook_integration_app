@@ -45,3 +45,4 @@
 # Ignore IDE files
 .idea
 .vscode
+/.ruby-lsp/
