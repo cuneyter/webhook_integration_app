@@ -22,7 +22,7 @@ This module is a simple data object that represents an HTTP response. It provide
 
 ### InboundWebhooks::ApplicationController
 
-The InboundWebhooks::ApplicationController is used to handle the common methods for the InboundWebhooks controllers. This controller is inherited by all the InboundWebhooks controllers. 
+The InboundWebhooks::ApplicationController is used to handle the common methods for the InboundWebhooks controllers. This controller is inherited by all the InboundWebhooks controllers.
 
 ### InboundWebhooks::GithubController
 
@@ -32,10 +32,12 @@ The InboundWebhooks::GithubController is used to handle the webhook request from
 
 You'll need the following installed
 
-* Ruby version: 3.3.4
-* bundler - `gem install bundler`
-* PostgreSQL needs to be installed
-  * PostgreSQL - `brew install postgresql` or `sudo apt-get install postgresql`
+- Ruby version: 3.4.1
+- bundler - `gem install bundler`
+- PostgreSQL needs to be installed
+  - PostgreSQL - `brew install postgresql` or `sudo apt-get install postgresql`
+- Redis needs to be installed
+  - Redis - `brew install redis` or `sudo apt-get install redis`
 
 ## Setting Up
 
