@@ -46,3 +46,4 @@
 .idea
 .vscode
 /.ruby-lsp/
+.DS_Store
