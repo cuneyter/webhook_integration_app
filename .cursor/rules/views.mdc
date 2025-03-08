@@ -1,6 +1,6 @@
 ---
 description: View-specific rules for Ruby on Rails projects
-globs: app/views/**.erb
+globs: app/views/**.{erb,haml,slim}
 alwaysApply: false
 ---
 # View-specific rules for Ruby on Rails projects
