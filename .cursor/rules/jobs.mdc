@@ -15,6 +15,9 @@ pattern:app/workers/**.rb -> worker
 context:job -> include:app/jobs/application_job.rb
 context:job -> include:config/sidekiq.yml
 context:job -> include:config/sidekiq.rb
+context:job -> include:config/delayed_job.rb
+context:job -> include:config/resque.yml
+context:job -> include:config/good_job.yml
 
 # Connect jobs with their related models or services
 hint:job_relationship -> look_for:
@@ -63,7 +66,7 @@ hint:job_patterns -> look_for:
     - sidekiq_retries_exhausted do |msg, ex|
 
 # Scope for finding job files
-scope:job -> 
+scope:job ->
     - app/jobs
     - app/workers
     - app/sidekiq

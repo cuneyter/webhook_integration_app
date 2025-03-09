@@ -72,3 +72,6 @@ context:helper -> include:app/views/shared/_*.slim
 # Connect with asset helpers
 context:helper -> include:app/assets/stylesheets/**.scss
 context:helper -> include:app/javascript/packs/application.js
+context:helper -> include:app/javascript/controllers/**.*
+context:helper -> include:app/javascript/components/**.*
+context:helper -> include:app/assets/builds/**.*

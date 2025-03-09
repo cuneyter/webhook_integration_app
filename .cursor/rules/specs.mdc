@@ -176,6 +176,9 @@ hint:test_data_setup -> look_for:
     - DatabaseCleaner.clean
     - DatabaseCleaner.start
     - ActiveRecord::FixtureSet.identify(:{{ fixture_name }})
+    - Faker::{{ faker_generator }}
+    - Fabricate(:{{ model_name }})
+    - Fabricate.build(:{{ model_name }})
 
 # Custom matchers
 hint:custom_matchers -> look_for:
