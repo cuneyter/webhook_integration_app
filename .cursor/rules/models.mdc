@@ -79,7 +79,4 @@ hint:delegation -> include:
 # Context for test file
 context:model -> include:spec/models/**/*.rb
 <!-- context:model -> include:test/models/**/*.rb -->
-
-
-
-    
+ 

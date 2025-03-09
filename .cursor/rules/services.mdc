@@ -20,6 +20,10 @@ hint:service_model_relationship -> look_for:
     - {{ model_name }}.find
     - {{ model_name }}.where
     - {{ model_name }}.new
+    - {{ model_name }}.create
+    - {{ model_name }}.update
+    - {{ model_name }}.destroy
+    - @{{ model_name.underscore }}.association
 
 # Navigation shortcuts for service files
 jump:service base -> app/services/base_service.rb
@@ -81,6 +85,10 @@ hint:service_result_patterns -> look_for:
     - return { success: true }
     - return { error: }
     - ServiceResult.new
+    - Dry::Monads::Result::Success
+    - Dry::Monads::Result::Failure
+    - Success(
+    - Failure(
 
 # Error handling patterns
 hint:service_error_handling -> look_for:
@@ -132,3 +140,9 @@ hint:interactor_pattern -> look_for:
     - def call
     - context.fail!
     - context.{{ attribute }} =
+    - include Interactor::Organizer
+    - organize {{ interactor_classes }}
+    - before
+    - after
+    - around
+    - rollback

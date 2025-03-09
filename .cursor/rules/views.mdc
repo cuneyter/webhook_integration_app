@@ -91,5 +91,3 @@ hint:hotwire_patterns -> look_for:
     - data-controller=
     - data-action=
     - data-target=
-
-    

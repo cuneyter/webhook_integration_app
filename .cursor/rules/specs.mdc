@@ -19,6 +19,7 @@ pattern:spec/services/**.rb -> service_spec
 pattern:spec/support/**.rb -> spec_support
 pattern:spec/factories/**.rb -> factory
 pattern:spec/fixtures/**.yml -> fixture
+pattern:spec/serializers/**.rb -> serializer_spec
 
 # Include context for spec helper files
 context:model_spec -> include:spec/rails_helper.rb
@@ -79,6 +80,10 @@ hint:rspec_matchers -> include:
     - have_http_status
     - render_template
     - redirect_to
+    - assign
+    - set_flash
+    - respond_with
+    - permit
 
 # Factory Bot hints
 hint:factory_bot -> include:

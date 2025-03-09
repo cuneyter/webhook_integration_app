@@ -39,6 +39,15 @@ hint:helper_methods -> include:
     - number_to_percentage
     - time_ago_in_words
     - distance_of_time_in_words
+    - capture
+    - concat
+    - render
+    - javascript_include_tag
+    - stylesheet_link_tag
+    - current_page?
+    - url_for
+    - asset_path
+    - asset_url
 
 # View helper pattern hints
 hint:helper_patterns -> look_for:

@@ -21,6 +21,12 @@ hint:job_relationship -> look_for:
     - {{ model_name }}.find
     - {{ service_name }}.new
 
+# Connect jobs with controllers that enqueue them
+hint:controller_job_usage -> look_for:
+    - {{ job_name }}Job.perform_later
+    - {{ job_name }}Job.set
+    - {{ job_name }}Worker.perform_async
+
 # Navigation shortcuts for job files
 jump:job application -> app/jobs/application_job.rb
 jump:worker sidekiq -> config/sidekiq.yml

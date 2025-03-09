@@ -85,6 +85,8 @@ hint:engine_mounting -> look_for:
     - mount {{ engine_name }}::Engine, at: "{{ path }}"
     - mount {{ engine_name }}, at: "{{ path }}"
     - mount_engine {{ engine_name }}, at: "{{ path }}"
+    - mount ActionCable.server => "/cable"
+    - mount GraphiQL::Rails::Engine, at: "/graphiql" if Rails.env.development?
 
 # Connect with engine routes if applicable
 context:routes -> include:config/routes/**.rb
