@@ -1,0 +1,15 @@
+GitHub Pull Request <%= @action.capitalize %>
+===============================
+
+Pull Request "<%= @pr_title %>" (#<%= @pr_number %>) in repository <%= @repository_name %> has been <%= @action %> by <%= @closed_by %>.
+
+<% if @merged %>
+The changes have been successfully merged into the target branch.
+<% else %>
+The pull request was closed without being merged.
+<% end %>
+
+Pull Request URL: <%= @pr_url %>
+Repository URL: <%= @repository_url %>
+
+This is an automated notification from your GitHub webhook integration.

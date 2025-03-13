@@ -1,0 +1,16 @@
+GitHub Push Event Notification
+===============================
+
+<% if @deleted %>
+<%= @pusher_name %> has deleted branch <%= @branch_name %> in repository <%= @repository_name %>.
+<% else %>
+<%= @pusher_name %> has pushed to branch <%= @branch_name %> in repository <%= @repository_name %>.
+
+You can view the changes here: <%= @compare_url %>
+<% end %>
+
+Reference: <%= @ref %>
+
+Repository URL: <%= @repository_url %>
+
+This is an automated notification from your GitHub webhook integration.
