@@ -42,7 +42,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # HTTP/REST API client library.
-gem "faraday", "~> 2.12"
+gem "faraday", "~> 2.13"
 
 # HTTP client library.
 gem "http", "~> 5.2"
