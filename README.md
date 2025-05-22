@@ -63,11 +63,11 @@ You'll need the following installed:
 - Ruby version: `3.4.1`
 - `bundler`: Run `gem install bundler`
 - `PostgreSQL`:
-    - macOS: `brew install postgresql`
-    - Ubuntu/Debian: `sudo apt-get install postgresql`
+  - macOS: `brew install postgresql`
+  - Ubuntu/Debian: `sudo apt-get install postgresql`
 - `Redis`:
-    - macOS: `brew install redis`
-    - Ubuntu/Debian: `sudo apt-get install redis`
+  - macOS: `brew install redis`
+  - Ubuntu/Debian: `sudo apt-get install redis`
 
 ## Setting Up
 
