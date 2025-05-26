@@ -1,5 +1,10 @@
 # This migration comes from active_storage (originally 20191206030411)
 class CreateActiveStorageVariantRecords < ActiveRecord::Migration[6.0]
+  ##
+  # Creates the `active_storage_variant_records` table if the `active_storage_blobs` table exists.
+  #
+  # The new table stores variant records for Active Storage, with a foreign key to blobs and a unique index on the combination of `blob_id` and `variation_digest`.
+  # The primary key and foreign key types are dynamically determined to match the application's configuration and the `active_storage_blobs` table.
   def change
     return unless table_exists?(:active_storage_blobs)
 
@@ -14,11 +19,16 @@ class CreateActiveStorageVariantRecords < ActiveRecord::Migration[6.0]
   end
 
   private
+    # @return [Symbol] The primary key type to use for table creation
     def primary_key_type
       config = Rails.configuration.generators
       config.options[config.orm][:primary_key_type] || :primary_key
     end
 
+    ##
+    # Determines the primary key type of the active_storage_blobs table.
+    #
+    # @return [Symbol] The type of the primary key column, either :bigint or the column's type.
     def blobs_primary_key_type
       pkey_name = connection.primary_key(:active_storage_blobs)
       pkey_column = connection.columns(:active_storage_blobs).find { |c| c.name == pkey_name }
