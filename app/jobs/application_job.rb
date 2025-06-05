@@ -10,6 +10,7 @@ class ApplicationJob < ActiveJob::Base
 
   # Add error reporting for better observability
   rescue_from(Exception) do |exception|
+    Rails.logger.error "Job failed: #{exception.message}\n#{exception.backtrace.join("\n")}"
     Rails.error.report(exception)
     raise exception
   end
