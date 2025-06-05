@@ -27,8 +27,14 @@ gem "props_template", "~> 0.37.0"
 gem "redis", ">= 4.0.1"
 
 # Rails 8 Solid Adapters - Database-backed alternatives to Redis
-gem "solid_cable", "~> 3.0"    # Database-backed ActionCable adapter
-gem "solid_cache", "~> 1.0"    # Database-backed ActiveSupport::Cache::Store
+# Use Solid Cable to run Action Cable in production [https://github.com/rails/solid_cable]
+# Solid Cable is a database-backed Action Cable adapter that provides a reliable
+# and scalable solution for real-time features.
+gem 'solid_cable', '~> 3.0', '>= 3.0.8'
+
+# Use Solid Cache to run Action Cable in production [https://github.com/rails/solid_cache]
+# Solid Cache is a database-backed cache store that provides a reliable and scalable solution for caching.
+gem "solid_cache", "~> 1.0"
 
 # Use Solid Job to run background jobs in production [https://github.com/rails/solid_queue/]
 # Solid Job is a database-backed Active Job backend that provides a reliable and scalable solution for background processing.
