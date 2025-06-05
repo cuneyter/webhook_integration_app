@@ -19,10 +19,14 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-
 development:
-  <<: *default
-  database: webhook_integration_app_development
+  primary:
+    <<: *default
+    database: webhook_integration_app_development
+  queue:
+    <<: *default
+    database: webhook_integration_app_development_queue
+    migrations_paths: db/queue_migrate
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -55,8 +59,13 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: webhook_integration_app_test
+  primary:
+    <<: *default
+    database: webhook_integration_app_test
+  queue:
+    <<: *default
+    database: webhook_integration_app_test_queue
+    migrations_paths: db/queue_migrate
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,7 +88,12 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: webhook_integration_app_production
-  username: webhook_integration_app
-  password: <%= ENV["WEBHOOK_INTEGRATION_APP_DATABASE_PASSWORD"] %>
+  primary: &primary_production
+    <<: *default
+    database: webhook_integration_app_production
+    username: webhook_integration_app
+    password: <%= ENV["WEBHOOK_INTEGRATION_APP_DATABASE_PASSWORD"] %>
+  queue:
+    <<: *primary_production
+    database: webhook_integration_app_production_queue
+    migrations_paths: db/queue_migrate

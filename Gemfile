@@ -26,6 +26,14 @@ gem "props_template", "~> 0.37.0"
 # Use Redis adapter to run Action Cable in production
 gem "redis", ">= 4.0.1"
 
+# Rails 8 Solid Adapters - Database-backed alternatives to Redis
+gem "solid_cable", "~> 3.0"    # Database-backed ActionCable adapter
+gem "solid_cache", "~> 1.0"    # Database-backed ActiveSupport::Cache::Store
+
+# Use Solid Job to run background jobs in production [https://github.com/rails/solid_queue/]
+# Solid Job is a database-backed Active Job backend that provides a reliable and scalable solution for background processing.
+gem 'solid_queue', '~> 1.1', '>= 1.1.5'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
