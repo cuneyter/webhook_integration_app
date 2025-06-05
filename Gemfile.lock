@@ -425,7 +425,7 @@ DEPENDENCIES
   props_template (~> 0.37.0)
   propshaft (~> 1.1)
   puma (>= 5.0)
-  rails (~> 8.0)
+  rails (~> 8.0, >= 8.0.2)
   redis (>= 4.0.1)
   rspec-rails
   rubocop-rails-omakase

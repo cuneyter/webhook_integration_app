@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby File.read(".ruby-version").strip
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0"
+gem 'rails', '~> 8.0', '>= 8.0.2'
 # Use Propshaft as the asset pipeline [https://github.com/rails/propshaft]
 gem "propshaft", "~> 1.1"
 # Use postgresql as the database for Active Record
