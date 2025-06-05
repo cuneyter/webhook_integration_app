@@ -2,9 +2,9 @@ name: CI
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   scan_ruby:
@@ -89,10 +89,18 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/webhook_integration_app_test
+          # Multi-database URLs for Solid Adapters
+          DATABASE_URL_QUEUE: postgres://postgres:postgres@localhost:5432/webhook_integration_app_test_queue
+          DATABASE_URL_CABLE: postgres://postgres:postgres@localhost:5432/webhook_integration_app_test_cable
+          DATABASE_URL_CACHE: postgres://postgres:postgres@localhost:5432/webhook_integration_app_test_cache
           # REDIS_URL: redis://localhost:6379/0
         run: |
-          bin/rails db:test:prepare
+          bin/rails db:create RAILS_ENV=test
+          bin/rails db:schema:load RAILS_ENV=test
+          bin/rails db:schema:load:queue RAILS_ENV=test
+          bin/rails db:schema:load:cable RAILS_ENV=test
+          bin/rails db:schema:load:cache RAILS_ENV=test
           bundle exec rspec
 
       - name: Keep screenshots from failed system tests
