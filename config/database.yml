@@ -70,18 +70,22 @@ test:
   primary:
     <<: *default
     database: webhook_integration_app_test
+    url: <%= ENV["DATABASE_URL"] %>
   queue:
     <<: *default
     database: webhook_integration_app_test_queue
     migrations_paths: db/queue_migrate
+    url: <%= ENV["DATABASE_URL_QUEUE"] %>
   cable:
     <<: *default
     database: webhook_integration_app_test_cable
     migrations_paths: db/cable_migrate
+    url: <%= ENV["DATABASE_URL_CABLE"] %>
   cache:
     <<: *default
     database: webhook_integration_app_test_cache
     migrations_paths: db/cache_migrate
+    url: <%= ENV["DATABASE_URL_CACHE"] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
