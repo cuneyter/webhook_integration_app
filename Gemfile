@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+rubysource "https://rubygems.org"
 
 ruby File.read(".ruby-version").strip
 
@@ -18,13 +18,9 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails", "~> 3.3.1"
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
-# gem "jbuilder"
 # PropsTemplate is a direct-to-Oj, JBuilder-like DSL for building JSON.
 # It has support for Russian-Doll caching, layouts, and can be queried by giving the root a key path.
 gem "props_template", "~> 0.37.0"
-# Use Redis adapter to run Action Cable in production
-gem "redis", ">= 4.0.1"
 
 # Rails 8 Solid Adapters - Database-backed alternatives to Redis
 # Use Solid Cable to run Action Cable in production [https://github.com/rails/solid_cable]
@@ -39,9 +35,6 @@ gem "solid_cache", "~> 1.0", ">= 1.0.7"
 # Use Solid Job to run background jobs in production [https://github.com/rails/solid_queue/]
 # Solid Job is a database-backed Active Job backend that provides a reliable and scalable solution for background processing.
 gem "solid_queue", "~> 1.1", ">= 1.1.5"
-
-# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
