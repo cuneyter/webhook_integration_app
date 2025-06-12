@@ -1,8 +1,12 @@
 class ApplicationController < ActionController::Base
+  include Authentication
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
   def index
-    render json: { message: "Hello World" }
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: { message: "Hello World" } }
+    end
   end
 end

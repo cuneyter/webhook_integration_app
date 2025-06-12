@@ -1,0 +1,7 @@
+<h1>Hello World</h1>
+
+<% if Current.user %>
+  <div class="m-4">
+    <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-blue px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded" %>
+  </div>
+<% end %>
