@@ -1,7 +1,55 @@
-<h1>Hello World</h1>
+<!-- Hero Section -->
+<div class="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+  <div class="container mx-auto px-4 py-16">
+    <!-- Navigation -->
+    <nav class="flex justify-between items-center mb-16">
+      <div class="text-2xl font-bold text-blue-600">YourApp</div>
+      <div>
+        <% if Current.user %>
+          <%= button_to "Sign Out", session_path, method: :delete,
+                        class: "px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition duration-200 ease-in-out transform hover:scale-105" %>
+        <% else %>
+          <%= link_to "Sign In", new_session_path,
+                      class: "px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition duration-200 ease-in-out transform hover:scale-105" %>
+        <% end %>
+      </div>
+    </nav>
 
-<% if Current.user %>
-  <div class="m-4">
-    <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-blue px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded" %>
+    <!-- Hero Content -->
+    <div class="text-center">
+      <h1 class="text-5xl font-bold text-gray-900 mb-6">
+        Welcome to YourApp
+      </h1>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        A powerful platform that helps you manage your webhooks and integrations with ease.
+      </p>
+      <% unless Current.user %>
+        <div class="space-x-4">
+          <%= link_to "Get Started", new_session_path,
+                      class: "px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-lg font-semibold transition duration-200 ease-in-out transform hover:scale-105" %>
+          <%= link_to "Learn More", "#",
+                      class: "px-8 py-3 bg-white hover:bg-gray-50 text-blue-600 border border-blue-600 rounded-lg text-lg font-semibold transition duration-200 ease-in-out transform hover:scale-105" %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Features Section -->
+    <div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition duration-200">
+        <div class="text-blue-600 text-2xl mb-4">🚀</div>
+        <h3 class="text-xl font-semibold mb-2">Easy Integration</h3>
+        <p class="text-gray-600">Connect your applications seamlessly with our powerful webhook system.</p>
+      </div>
+      <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition duration-200">
+        <div class="text-blue-600 text-2xl mb-4">⚡</div>
+        <h3 class="text-xl font-semibold mb-2">Real-time Updates</h3>
+        <p class="text-gray-600">Get instant notifications and updates for all your integrations.</p>
+      </div>
+      <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition duration-200">
+        <div class="text-blue-600 text-2xl mb-4">🔒</div>
+        <h3 class="text-xl font-semibold mb-2">Secure & Reliable</h3>
+        <p class="text-gray-600">Enterprise-grade security and reliability for your integrations.</p>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>
