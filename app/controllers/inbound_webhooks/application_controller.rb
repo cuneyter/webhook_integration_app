@@ -1,5 +1,5 @@
 module InboundWebhooks
-  class ApplicationController < ::ApplicationController
+  class ApplicationController < ActionController::Base
     # skip_forgery_protection is used to disable CSRF (Cross-Site Request Forgery) protection for this controller.
     # The webhooks are typically sent by external services and do not include CSRF tokens
     # Disabling CSRF protection allows these external requests to be processed without requiring a CSRF token.

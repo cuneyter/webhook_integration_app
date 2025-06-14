@@ -23,7 +23,7 @@ module InboundWebhooks
         payload: webhook_payload,
         controller_name: self.class.name,
         source_ip: request.remote_ip,
-        inbound_webhook_id: webhook_payload["hook_id"]
+        inbound_webhook_id: webhook_payload["hook_id"] || SecureRandom.uuid
       )
     end
 

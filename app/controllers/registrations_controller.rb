@@ -11,7 +11,7 @@ class RegistrationsController < ApplicationController
       start_new_session_for @user
       redirect_to root_path, notice: "Successfully signed up!"
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
