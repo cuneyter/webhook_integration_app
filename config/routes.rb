@@ -15,4 +15,8 @@ Rails.application.routes.draw do
   namespace :inbound_webhooks do
     resources :github, only: [ :create ]
   end
+
+  resource :session
+  resource :registration, only: %i[new create]
+  resources :passwords, param: :token
 end
