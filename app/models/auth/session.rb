@@ -14,6 +14,22 @@
 #  index_sessions_on_user_id  (user_id)
 #
 
-class Session < ApplicationRecord
+class Auth::Session < ApplicationRecord
+  self.table_name = 'sessions'
+
   belongs_to :user
+
+  validates :user, presence: true
+  validates :ip_address, presence: true, if: :ip_address_required?
+  validates :user_agent, presence: true, if: :user_agent_required?
+
+  private
+
+  def ip_address_required?
+    false
+  end
+
+  def user_agent_required?
+    false
+  end
 end
