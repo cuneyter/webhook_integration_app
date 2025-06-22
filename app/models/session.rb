@@ -14,9 +14,7 @@
 #  index_sessions_on_user_id  (user_id)
 #
 
-class Auth::Session < ApplicationRecord
-  self.table_name = 'sessions'
-
+class Session < ApplicationRecord
   belongs_to :user
 
   validates :user, presence: true

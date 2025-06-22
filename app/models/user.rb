@@ -15,7 +15,7 @@
 
 class User < ApplicationRecord
   has_secure_password
-  has_many :sessions, class_name: "Auth::Session", foreign_key: "user_id", inverse_of: :user, dependent: :destroy
+  has_many :sessions, inverse_of: :user, dependent: :destroy
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 end
