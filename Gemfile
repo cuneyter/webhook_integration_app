@@ -26,7 +26,7 @@ gem "props_template", "~> 0.37.0"
 # Use Solid Cable to run Action Cable in production [https://github.com/rails/solid_cable]
 # Solid Cable is a database-backed Action Cable adapter that provides a reliable
 # and scalable solution for real-time features.
-gem "solid_cable", "~> 3.0", ">= 3.0.8"
+gem "solid_cable", "~> 3.0"
 
 # Use Solid Cache to run Action Cable in production [https://github.com/rails/solid_cache]
 # Solid Cache is a database-backed cache store that provides a reliable and scalable solution for caching.
