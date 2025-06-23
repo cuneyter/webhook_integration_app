@@ -18,5 +18,5 @@ Rails.application.routes.draw do
 
   resource :session
   resource :registration, only: %i[new create]
-  resources :passwords, param: :token
+  resources :passwords, only: %i[new create edit update], param: :token
 end
