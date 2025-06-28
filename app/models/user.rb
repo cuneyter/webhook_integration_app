@@ -19,9 +19,10 @@ class User < ApplicationRecord
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
-  validates :email_address, presence: true
-  validates :email_address, uniqueness: { case_sensitive: false }
-  validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }
+  # Use a custom regex that requires at least one dot in the domain part
+  EMAIL_REGEX = /\A[^@\s]+@([^@\s]+\.)+[^@\s\.]+\z/
 
-  validates :password, length: { minimum: 8, maximum: 72 }, if: -> { password.present? }
+  validates :email_address, presence: true, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX }
+
+  validates :password, length: { minimum: 8, maximum: 72 }, allow_blank: true
 end
