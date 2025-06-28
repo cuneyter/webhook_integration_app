@@ -19,8 +19,8 @@ class User < ApplicationRecord
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
-  # Use a custom regex that requires at least one dot in the domain part
-  EMAIL_REGEX = /\A[^@\s]+@([^@\s]+\.)+[^@\s\.]+\z/
+  # Use a safer regex that avoids catastrophic backtracking
+  EMAIL_REGEX = /\A[^@\s]+@[^@\s]+\.[^@\s\.]+\z/
 
   validates :email_address, presence: true, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX }
 
