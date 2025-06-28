@@ -18,4 +18,10 @@ class User < ApplicationRecord
   has_many :sessions, inverse_of: :user, dependent: :destroy
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+
+  validates :email_address, presence: true
+  validates :email_address, uniqueness: { case_sensitive: false }
+  validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  validates :password, length: { minimum: 8, maximum: 72 }, if: -> { password.present? }
 end
