@@ -18,4 +18,11 @@ class User < ApplicationRecord
   has_many :sessions, inverse_of: :user, dependent: :destroy
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+
+  # Use a safer regex that avoids catastrophic backtracking
+  EMAIL_REGEX = /\A[^@\s]+@[^@\s]+\.[^@\s\.]+\z/
+
+  validates :email_address, presence: true, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX }
+
+  validates :password, length: { minimum: 8, maximum: 72 }, allow_blank: true
 end
