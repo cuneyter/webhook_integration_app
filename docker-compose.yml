@@ -1,0 +1,89 @@
+services:
+  # Rails application service
+  web:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=production
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      - RAILS_LOG_TO_STDOUT=true
+      - RAILS_SERVE_STATIC_FILES=true
+      - JOB_CONCURRENCY=3
+      - RAILS_MAX_THREADS=5
+      - MAILER_HOST=${MAILER_HOST:-localhost:3000}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - storage:/rails/storage
+      - ./log:/rails/log
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 360s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Background job worker service
+  worker:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - RAILS_ENV=production
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      - RAILS_LOG_TO_STDOUT=true
+      - JOB_CONCURRENCY=2
+      - RAILS_MAX_THREADS=5
+      - MAILER_HOST=${MAILER_HOST:-localhost:3000}
+    depends_on:
+      db:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - storage:/rails/storage
+      - ./log:/rails/log
+    command: ["./bin/rails", "solid_queue:start"]
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "solid_queue"]
+      interval: 360s
+      timeout: 10s
+      retries: 3
+
+  # PostgreSQL database service
+  db:
+    env_file:
+      - .env
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_DB=webhook_integration_app_production
+      - POSTGRES_MULTIPLE_DATABASES=webhook_integration_app_production,webhook_integration_app_production_queue,webhook_integration_app_production_cable,webhook_integration_app_production_cache
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 360s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
+  storage:
+    driver: local

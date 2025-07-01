@@ -34,6 +34,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /config/credentials/development.key
+/config/credentials/production.key
 
 # Ignore custom hmac_header_generator.rb
 /hmac_header_generator.rb

@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root to: "application#index"
 
+  # Health check endpoint for Docker
+  get '/health', to: proc { [200, {}, ['OK']] }
+  # Health check endpoint for production
+  get '/up', to: proc { [200, {}, ['OK']] }
+
   namespace :inbound_webhooks do
     resources :github, only: [ :create ]
   end

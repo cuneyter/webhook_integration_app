@@ -1,13 +1,33 @@
-#!/bin/bash -e
+#!/bin/bash
+set -e
 
-# Enable jemalloc for reduced memory usage and latency.
-if [ -z "${LD_PRELOAD+x}" ] && [ -f /usr/lib/*/libjemalloc.so.2 ]; then
-  export LD_PRELOAD="$(echo /usr/lib/*/libjemalloc.so.2)"
+# Remove a potentially pre-existing server.pid for Rails.
+rm -f /rails/tmp/pids/server.pid
+
+# Wait for database to be ready using pg_isready for robustness
+DB_HOST="${DB_HOST:-db}"
+DB_USER="${DB_USER:-postgres}"
+DB_NAME="${DB_NAME:-webhook_integration_app_development}"
+DB_PORT="${DB_PORT:-5432}"
+
+# Allow override from database.yml if needed
+if [ -f config/database.yml ]; then
+  DB_USER=$(grep 'username:' config/database.yml | awk '{print $2}' | head -n1)
+  DB_NAME=$(grep 'database:' config/database.yml | awk '{print $2}' | head -n1)
 fi
 
-# If running the rails server then create or migrate existing database
-if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
-  ./bin/rails db:prepare
+echo "Waiting for database to be ready at $DB_HOST:$DB_PORT (user: $DB_USER, db: $DB_NAME)..."
+until pg_isready -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME"; do
+  echo "Database not ready, waiting..."
+  sleep 2
+done
+
+# Only run migrations/setup for web process (not worker)
+if [[ "$1" == "./bin/dev" || ("$1" == "bin/rails" && "$2" == "server") ]]; then
+  echo "Setting up database and running migrations..."
+  bin/rails db:prepare
+  bin/rails db:migrate
 fi
 
-exec "${@}"
+# Then exec the container's main process (what's set as CMD in the Dockerfile).
+exec "$@"
