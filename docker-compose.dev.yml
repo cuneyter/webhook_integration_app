@@ -1,0 +1,90 @@
+services:
+  # Rails application service for development
+  web:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=development
+      - RAILS_LOG_TO_STDOUT=true
+      - JOB_CONCURRENCY=1
+      - RAILS_MAX_THREADS=5
+      - MAILER_HOST=localhost:3000
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/rails
+      - bundle_cache:/usr/local/bundle
+      - storage:/rails/storage
+      - ./config/master.key:/rails/config/master.key
+    command: ["./bin/dev"]
+    stdin_open: true
+    tty: true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 180s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Background job worker service for development
+  worker:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      - RAILS_ENV=development
+      - RAILS_LOG_TO_STDOUT=true
+      - JOB_CONCURRENCY=1
+      - RAILS_MAX_THREADS=5
+      - MAILER_HOST=localhost:3000
+    depends_on:
+      db:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+    volumes:
+      - .:/rails
+      - bundle_cache:/usr/local/bundle
+      - storage:/rails/storage
+      - ./config/master.key:/rails/config/master.key
+    command: ["./bin/rails", "solid_queue:start"]
+    stdin_open: true
+    tty: true
+
+  # PostgreSQL database service
+  db:
+    env_file:
+      - .env
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=webhook_integration_app_development
+      - POSTGRES_MULTIPLE_DATABASES=webhook_integration_app_development,webhook_integration_app_development_queue,webhook_integration_app_development_cable,webhook_integration_app_development_cache
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 180s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  postgres_data:
+    driver: local
+  bundle_cache:
+    driver: local
+  storage:
+    driver: local

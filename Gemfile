@@ -65,6 +65,8 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
   gem "factory_bot_rails"
   gem "rspec-rails"
+  # Loads environment variables from .env file
+  gem "dotenv-rails"
 end
 
 group :development do
