@@ -49,6 +49,15 @@ Rails.application.configure do
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
+  # Allow requests with any Host header in test environment
+  config.hosts.clear # Clear the host list
+  # Add 'www.example.com' and localhost to allowed hosts
+  config.hosts << "www.example.com"
+  config.hosts << "localhost"
+  config.hosts << "0.0.0.0"
+  # Also disable host authorization checks
+  config.host_authorization = { exclude: ->(_) { true } }
+
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 

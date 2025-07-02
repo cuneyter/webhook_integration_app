@@ -26,7 +26,7 @@ This document explains how to use Docker with the Webhook Integration App, a Rai
 
 3. **Access the application:**
    - Web application: `http://localhost:3000`
-   - Database: `localhost:5432`
+   - Database: `localhost:5432` (not to expose in production, use a secure connection)
 
 ### Development Environment
 
@@ -40,9 +40,7 @@ This document explains how to use Docker with the Webhook Integration App, a Rai
    POSTGRES_PASSWORD=postgres
    # Add other development environment variables here
    ```
-
-   **Note:** The master key is now read directly from `config/master.key` and doesn't need to be specified in the `.env` file.
-
+   
 2. **Start development environment:**
 
    ```bash
@@ -76,7 +74,7 @@ This document explains how to use Docker with the Webhook Integration App, a Rai
 #### Development Environment Variables
 
 - Uses dotenv-rails gem to load variables from `.env` file
-- Credentials are read directly from `config/master.key` (mounted into container)
+- Rails Master Key is in the .env file.
 
 ### Pre-configured Variables
 
@@ -85,15 +83,6 @@ The following variables are already configured in the docker-compose files:
 - `MAILER_HOST=localhost:3000`: Host for mailer URLs
 - `RAILS_MAX_THREADS=5`: Maximum database connection pool size
 - `RAILS_LOG_LEVEL=info`: Log level
-
-### Database Connection Variables
-
-The application automatically configures database connections using these environment variables:
-
-- `DATABASE_URL`: Primary database connection
-- `DATABASE_URL_QUEUE`: Solid Queue database connection
-- `DATABASE_URL_CABLE`: Solid Cable database connection
-- `DATABASE_URL_CACHE`: Solid Cache database connection
 
 ### Optional Override Variables
 
@@ -107,13 +96,8 @@ docker-compose up --build
 
 ## Credentials Configuration
 
-This application uses Rails 8's environment-specific credentials:
-
-- **Development**: `config/credentials/development.yml.enc` (key stored in `config/credentials/development.key`)
-- **Production**: `config/credentials/production.yml.enc` (key stored in `config/credentials/production.key`)
 - **Default**: `config/credentials.yml.enc` (key stored in `config/master.key`)
 
-In the development Docker environment, the `config/master.key` file is mounted directly into the container, so you don't need to set the `RAILS_MASTER_KEY` environment variable.
 
 ### Managing Credentials
 
@@ -164,7 +148,6 @@ The application uses multiple PostgreSQL databases for different purposes:
 
 The Docker setup automatically creates all required databases using:
 
-- **Initialization Script**: `docker-entrypoint-initdb.d/init-multiple-databases.sh`
 - **Environment Variable**: `POSTGRES_MULTIPLE_DATABASES` lists all databases to create
 - **Automatic Setup**: Databases are created when PostgreSQL container starts
 
@@ -245,9 +228,6 @@ docker-compose -f docker-compose.dev.yml logs -f app
 
 # Run Rails console
 docker-compose -f docker-compose.dev.yml exec app bin/rails console
-
-# Run tests
-docker-compose -f docker-compose.dev.yml exec app bin/rails test
 
 # Run RSpec
 docker-compose -f docker-compose.dev.yml exec app bundle exec rspec
