@@ -25,17 +25,13 @@ Rails.application.configure do
     config.action_controller.perform_caching = false
   end
 
-  # Change to :null_store to avoid any caching.
-  config.cache_store = :solid_cache_store
-  config.solid_cache.connects_to = { database: { writing: :cache } }
-
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
-  # Make template changes take effect immediately.
+  # Make template changes take effect immediately.data
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
@@ -55,6 +51,10 @@ Rails.application.configure do
 
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
+
+  # Change to :null_store to avoid any caching.
+  config.cache_store = :memory_store
+  config.solid_cache.connects_to database: { writing: :cache }
 
   # Use Solid Queue for background jobs in development
   config.active_job.queue_adapter = :solid_queue

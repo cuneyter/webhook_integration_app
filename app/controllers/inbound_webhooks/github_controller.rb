@@ -32,7 +32,7 @@ module InboundWebhooks
     end
 
     def signing_secret
-      Rails.application.credentials.github[:signing_secret]
+      # Rails.application.credentials.github[:signing_secret]
     end
   end
 end

@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+# Enable jemalloc for reduced memory usage and latency
+if [ -z "${LD_PRELOAD+x}" ] && [ -f /usr/lib/*/libjemalloc.so.2 ]; then
+  export LD_PRELOAD="$(echo /usr/lib/*/libjemalloc.so.2)"
+fi
+
+# If running rails server or bin/dev then create or migrate existing database
+if ([ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]) || [ "${1}" == "./bin/dev" ]; then
+  # Wait for database to be ready
+  until pg_isready -h db -U postgres; do
+    echo "Waiting for database to be ready..."
+    sleep 2
+  done
+
+  # Check if master.key is available
+  if [ -f /rails/config/master.key ]; then
+    echo "Master key found"
+  else
+    echo "Warning: master.key not found. Creating from RAILS_MASTER_KEY environment variable."
+    if [ -n "$RAILS_MASTER_KEY" ]; then
+      echo "Using RAILS_MASTER_KEY from environment"
+      echo "$RAILS_MASTER_KEY" > /rails/config/master.key
+      chmod 600 /rails/config/master.key
+      echo "Created master.key file from environment variable"
+    else
+      echo "Error: RAILS_MASTER_KEY environment variable is not set."
+      exit 1
+    fi
+  fi
+
+  # Prepare database if needed
+  ./bin/rails db:prepare
+
+  # Create database specific tables for Solid gems
+  ./bin/rails db:migrate
+fi
+
+exec "${@}"

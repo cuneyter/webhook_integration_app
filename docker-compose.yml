@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_DB: webhook_integration_app_production
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b '0.0.0.0'"
+    ports:
+      - "${PORT:-80}:3000"
+    environment:
+      DATABASE_URL: postgres://${DB_USER:-postgres}:${DB_PASSWORD:-password}@db/webhook_integration_app_production
+      DATABASE_URL_QUEUE: postgres://${DB_USER:-postgres}:${DB_PASSWORD:-password}@db/webhook_integration_app_production_queue
+      DATABASE_URL_CABLE: postgres://${DB_USER:-postgres}:${DB_PASSWORD:-password}@db/webhook_integration_app_production_cable
+      DATABASE_URL_CACHE: postgres://${DB_USER:-postgres}:${DB_PASSWORD:-password}@db/webhook_integration_app_production_cache
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: "true"
+      RAILS_LOG_TO_STDOUT: "true"
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+    restart: unless-stopped
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
