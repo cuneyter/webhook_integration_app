@@ -12,7 +12,7 @@ RSpec.describe "Github Webhooks", type: :feature do
 
   context 'with an valid signature' do
     let(:verification_result) { true }
-    let(:valid_headers) { { "X-Hub-Signature-256" => "valid_signature", "Content-Type" => "application/json" } }
+    let(:valid_headers) { { "X-Hub-Signature-256" => "valid_signature", "Content-Type" => "application/json", "Host" => "localhost" } }
 
     scenario 'receives and processes a webhook' do
       expect {
@@ -34,7 +34,7 @@ RSpec.describe "Github Webhooks", type: :feature do
 
   context "with an invalid signature" do
     let(:verification_result) { false }
-    let(:invalid_headers) { { "X-Hub-Signature-256" => "invalid_signature", "Content-Type" => "application/json" } }
+    let(:invalid_headers) { { "X-Hub-Signature-256" => "invalid_signature", "Content-Type" => "application/json", "Host" => "localhost" } }
 
     scenario 'rejects webhook' do
       page.driver.post '/inbound_webhooks/github', payload, invalid_headers

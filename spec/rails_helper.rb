@@ -71,6 +71,9 @@ RSpec.configure do |config|
   end
 end
 
+# Configure Capybara
+Capybara.app_host = "http://www.example.com"
+
 # Configure shoulda-matchers
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
