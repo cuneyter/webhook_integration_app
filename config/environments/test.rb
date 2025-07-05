@@ -49,9 +49,25 @@ Rails.application.configure do
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
+  # Allow requests with any Host header in test environment
+  config.hosts.clear # Clear the host list
+  # Add 'www.example.com' and localhost to allowed hosts
+  config.hosts << "www.example.com"
+  config.hosts << "localhost"
+  config.hosts << "0.0.0.0"
+  # Also disable host authorization checks
+  config.host_authorization = { exclude: ->(_) { true } }
+
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+  # Disable CSRF protection in test environment
+  # This is useful for testing APIs or when you don't want to deal with CSRF tokens
+  # but be cautious as it can lead to security vulnerabilities if not handled properly.
+  # Note: This should only be used in test environments and not in production.
+  # If you need CSRF protection in tests, consider using `config.action_controller.allow_forgery_protection = true`
+  # and ensure your tests handle CSRF tokens correctly.
+  config.action_controller.allow_forgery_protection = false
 end

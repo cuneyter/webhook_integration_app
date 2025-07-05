@@ -5,6 +5,7 @@ require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'shoulda/matchers'
 
 require 'webmock/rspec'
 WebMock.disable_net_connect!(allow_localhost: true)
@@ -64,7 +65,14 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:each, type: :request) do
+    host! "www.example.com"
+  end
 end
+
+# Configure Capybara
+Capybara.app_host = "http://www.example.com"
 
 # Configure shoulda-matchers
 Shoulda::Matchers.configure do |config|

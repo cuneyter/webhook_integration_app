@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
+  # Docker healthcheck endpoint
+  get "/health", to: proc { [ 200, {}, [ "OK" ] ] }
+
   # Defines the root path route ("/")
   root to: "application#index"
 

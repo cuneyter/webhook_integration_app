@@ -1,0 +1,36 @@
+# syntax = docker/dockerfile:1
+
+# Make sure RUBY_VERSION matches the Ruby version in .ruby-version
+ARG RUBY_VERSION=3.4.1
+FROM docker.io/library/ruby:$RUBY_VERSION-slim
+
+# Rails app lives here
+WORKDIR /rails
+
+# Install dependencies
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config curl \
+    libjemalloc2 libvips postgresql-client && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Set development environment
+ENV RAILS_ENV="development" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    RAILS_LOG_TO_STDOUT="true"
+
+# Install application gems
+COPY Gemfile Gemfile.lock .ruby-version ./
+RUN bundle install
+
+# Entrypoint prepares the database
+COPY bin/docker-entrypoint-dev /usr/bin/
+RUN chmod +x /usr/bin/docker-entrypoint-dev
+ENTRYPOINT ["docker-entrypoint-dev"]
+
+# Make dev script executable
+COPY bin/dev ./bin/
+RUN chmod +x ./bin/dev
+
+# Start all processes defined in Procfile.dev
+EXPOSE 3000
+CMD ["./bin/dev"]

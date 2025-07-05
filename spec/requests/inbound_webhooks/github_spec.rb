@@ -12,7 +12,7 @@ RSpec.describe "InboundWebhooks::Github", type: :request do
 
     context 'with verified request' do
       let(:verification_result) { true }
-      let(:valid_headers) { { "X-Hub-Signature-256" => "valid_signature", "Content-Type" => "application/json" } }
+      let(:valid_headers) { { "X-Hub-Signature-256" => "valid_signature", "Content-Type" => "application/json", "Host" => "localhost" } }
 
       it 'creates a new InboundWebhook record' do
         expect {
@@ -40,7 +40,7 @@ RSpec.describe "InboundWebhooks::Github", type: :request do
 
     context 'with unverified request' do
       let(:verification_result) { false }
-      let(:invalid_headers) { { "X-Hub-Signature-256" => "invalid_signature", "Content-Type" => "application/json" } }
+      let(:invalid_headers) { { "X-Hub-Signature-256" => "invalid_signature", "Content-Type" => "application/json", "Host" => "localhost" } }
 
       it 'does not create a new InboundWebhook record' do
         expect {

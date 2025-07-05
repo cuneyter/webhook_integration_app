@@ -95,6 +95,46 @@ To run the test suite:
 rspec
 ```
 
+## Docker Development
+
+To run the application in a local Docker development environment:
+
+```bash
+docker-compose -f docker-compose.dev.yml up
+```
+
+This will:
+
+- Start a PostgreSQL database container
+- Build and run the Rails application using the development Dockerfile (Dockerfile.dev)
+- Run all processes defined in Procfile.dev (web server, CSS processing, and background jobs)
+- Mount your local code directory for live code reloading
+- Set up appropriate development environment variables
+
+## Docker Production Deployment
+
+For production deployment:
+
+```bash
+# Set required environment variables
+export RAILS_MASTER_KEY=your_production_master_key
+export DB_USER=your_db_user
+export DB_PASSWORD=your_secure_password
+export PORT=80  # Or another port of your choice
+
+# Deploy with docker-compose
+docker-compose up -d
+```
+
+The production configuration:
+
+- Uses the production-optimized Dockerfile
+- Sets proper security configurations for production
+- Enables automatic container restart
+- Exposes the application on your specified port (defaults to 80)
+
+You can customize the deployment by setting environment variables before running docker-compose.
+
 ## License
 
 This project is released under the [MIT License](LICENSE.txt).
