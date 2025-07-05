@@ -4,8 +4,14 @@ module InboundWebhooks
     # The webhooks are typically sent by external services and do not include CSRF tokens
     # Disabling CSRF protection allows these external requests to be processed without requiring a CSRF token.
     skip_forgery_protection
+    before_action :verify_request
 
     protected
+
+    # Enforce request verification
+    def verify_request
+      head :forbidden unless verified_request?
+    end
 
     # The HMAC header and payload are used to compute and compare signatures to verify the authenticity of the request.
     def verified_request?
