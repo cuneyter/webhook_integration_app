@@ -11,7 +11,7 @@ RSpec.describe "Registrations", type: :request do
   describe "POST /registration" do
     it "registers a new user" do
       expect {
-        post registration_path, headers: { "Host" => "localhost" }, params: { user: attributes_for(:user) }
+        post registration_path, params: { user: attributes_for(:user) }
       }.to change(User, :count).by(1)
       expect(response).to have_http_status(:found) # 302
       follow_redirect!
