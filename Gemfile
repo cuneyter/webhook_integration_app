@@ -34,7 +34,7 @@ gem "solid_cache", "~> 1.0", ">= 1.0.7"
 
 # Use Solid Job to run background jobs in production [https://github.com/rails/solid_queue/]
 # Solid Job is a database-backed Active Job backend that provides a reliable and scalable solution for background processing.
-gem "solid_queue", "~> 1.1", ">= 1.1.5"
+gem "solid_queue", "~> 1.2"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
