@@ -1,13 +1,17 @@
 class PasswordsController < ApplicationController
   allow_unauthenticated_access
+  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
+
   before_action :set_user_by_token, only: %i[ edit update ]
 
   def new
   end
 
   def create
-    if (user = User.find_by(email_address: params[:email_address]))
-      PasswordsMailer.reset(user).deliver_later
+    if address = params[:email_address].to_s.strip.downcase and address.present?
+      if (user = User.find_by(email_address: address))
+        PasswordsMailer.reset(user).deliver_later
+      end
     end
 
     redirect_to new_session_path, notice: "Password reset instructions sent (if user with that email address exists)."
