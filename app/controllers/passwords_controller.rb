@@ -1,4 +1,4 @@
-  class PasswordsController < ApplicationController
+class PasswordsController < ApplicationController
   allow_unauthenticated_access
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
 
@@ -8,8 +8,8 @@
   end
 
   def create
-    if email_params[:email_address].present?
-      normalised_email = email_params[:email_address].strip.downcase
+    if password_params[:email_address].present?
+      normalised_email = password_params[:email_address].strip.downcase
       if (user = User.find_by(email_address: normalised_email))
         PasswordsMailer.reset(user).deliver_later
       end
@@ -31,7 +31,7 @@
 
   private
 
-  def params
+  def password_params
     params.permit(:email_address)
   end
 
