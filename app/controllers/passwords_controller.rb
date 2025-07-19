@@ -1,4 +1,4 @@
-class PasswordsController < ApplicationController
+  class PasswordsController < ApplicationController
   allow_unauthenticated_access
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
 
@@ -8,8 +8,9 @@ class PasswordsController < ApplicationController
   end
 
   def create
-    if address = params[:email_address].to_s.strip.downcase and address.present?
-      if (user = User.find_by(email_address: address))
+    if email_params[:email_address].present?
+      normalised_email = email_params[:email_address].strip.downcase
+      if (user = User.find_by(email_address: normalised_email))
         PasswordsMailer.reset(user).deliver_later
       end
     end
@@ -29,9 +30,14 @@ class PasswordsController < ApplicationController
   end
 
   private
-    def set_user_by_token
-      @user = User.find_by_password_reset_token!(params[:token])
-    rescue ActiveSupport::MessageVerifier::InvalidSignature
-      redirect_to new_password_path, alert: "Password reset link is invalid or has expired."
-    end
+
+  def params
+    params.permit(:email_address)
+  end
+
+  def set_user_by_token
+    @user = User.find_by_password_reset_token!(params[:token])
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    redirect_to new_password_path, alert: "Password reset link is invalid or has expired."
+  end
 end
