@@ -7,7 +7,7 @@ gem "rails", "~> 8.0", ">= 8.0.2"
 # Use Propshaft as the asset pipeline [https://github.com/rails/propshaft]
 gem "propshaft", "~> 1.2"
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.5"
+gem "pg", "~> 1.6"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
