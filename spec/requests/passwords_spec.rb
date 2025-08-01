@@ -14,15 +14,23 @@ RSpec.describe "Passwords", type: :request do
     let(:token) { user.password_reset_token }
 
     context "with valid params" do
+      let(:valid_params) {
+        { user: { password: "new_password", password_confirmation: "new_password" } }
+      }
+
       it "redirects to the new session path" do
-        put password_path(token), params: { password: "new_password", password_confirmation: "new_password" }
+        put password_path(token), params: valid_params
         expect(response).to redirect_to(new_session_path)
       end
     end
 
     context "with invalid params" do
+      let(:invalid_params) {
+        { user: { password: "new_password", password_confirmation: "invalid" } }
+      }
+
       it "renders the edit template" do
-        put password_path(token), params: { password: "new_password", password_confirmation: "invalid" }
+        put password_path(token), params: invalid_params
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end

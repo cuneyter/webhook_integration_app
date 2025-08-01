@@ -3,8 +3,8 @@
 
   <%= form_with model: @user, url: password_path(params[:token]), method: :put, class: "contents" do |form| %>
     <% if form.object.errors.any? %>
-      <div class="text-red-500">
-        <h2>We couldn't save this record because:</h2>
+      <div class="text-red-500" role="alert">
+        <h2><%= pluralize(form.object.errors.count, "error") %> prohibited this password from being updated:</h2>
         <ul>
           <% form.object.errors.full_messages.each do |message| %>
             <li><%= message %></li>
