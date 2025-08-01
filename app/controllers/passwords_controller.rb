@@ -22,10 +22,10 @@ class PasswordsController < ApplicationController
   end
 
   def update
-    if @user.update(params.permit(:password, :password_confirmation))
+    if @user.update(user_params)
       redirect_to new_session_path, notice: "Password has been reset."
     else
-      redirect_to edit_password_path(params[:token]), alert: "Passwords did not match."
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -33,6 +33,10 @@ class PasswordsController < ApplicationController
 
   def password_params
     params.permit(:email_address)
+  end
+
+  def user_params
+    params.require(:user).permit(:password, :password_confirmation)
   end
 
   def set_user_by_token
