@@ -5,7 +5,7 @@ ruby File.read(".ruby-version").strip
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0"
 # Use Propshaft as the asset pipeline [https://github.com/rails/propshaft]
-gem "propshaft", "~> 1.2"
+gem "propshaft", "~> 1.3"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.6"
 # Use the Puma web server [https://github.com/puma/puma]
