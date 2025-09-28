@@ -226,7 +226,7 @@ GEM
       actionview (>= 7.0, < 9.0)
       activesupport (>= 7.0, < 9.0)
       oj (~> 3.9)
-    propshaft (1.2.1)
+    propshaft (1.3.1)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
@@ -429,7 +429,7 @@ DEPENDENCIES
   importmap-rails
   pg (~> 1.6)
   props_template (~> 0.38.0)
-  propshaft (~> 1.2)
+  propshaft (~> 1.3)
   puma (>= 5.0)
   rails (~> 8.0)
   rspec-rails
