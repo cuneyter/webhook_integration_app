@@ -30,7 +30,7 @@ gem "solid_cable", "~> 3.0"
 
 # Use Solid Cache to run Action Cable in production [https://github.com/rails/solid_cache]
 # Solid Cache is a database-backed cache store that provides a reliable and scalable solution for caching.
-gem "solid_cache", "~> 1.0", ">= 1.0.7"
+gem "solid_cache", "~> 1.0"
 
 # Use Solid Job to run background jobs in production [https://github.com/rails/solid_queue/]
 # Solid Job is a database-backed Active Job backend that provides a reliable and scalable solution for background processing.
