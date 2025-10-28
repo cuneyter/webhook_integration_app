@@ -17,7 +17,7 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem "tailwindcss-rails", "~> 4.3"
+gem "tailwindcss-rails", "~> 4.4"
 # PropsTemplate is a direct-to-Oj, JBuilder-like DSL for building JSON.
 # It has support for Russian-Doll caching, layouts, and can be queried by giving the root a key path.
 gem "props_template", "~> 0.38.0"
