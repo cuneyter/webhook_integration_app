@@ -351,8 +351,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    shoulda-matchers (6.5.0)
-      activesupport (>= 5.2.0)
+    shoulda-matchers (7.0.1)
+      activesupport (>= 7.1)
     solid_cable (3.0.12)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -440,7 +440,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   ruby-lsp-brakeman
   selenium-webdriver
-  shoulda-matchers (~> 6.5)
+  shoulda-matchers (~> 7.0)
   solid_cable (~> 3.0)
   solid_cache (~> 1.0)
   solid_queue (~> 1.2)
