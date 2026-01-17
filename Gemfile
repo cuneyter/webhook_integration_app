@@ -20,7 +20,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails", "~> 4.4"
 # PropsTemplate is a direct-to-Oj, JBuilder-like DSL for building JSON.
 # It has support for Russian-Doll caching, layouts, and can be queried by giving the root a key path.
-gem "props_template", "~> 0.38.0"
+gem "props_template", "~> 1.0.0"
 
 # Rails 8 Solid Adapters - Database-backed alternatives to Redis
 # Use Solid Cable to run Action Cable in production [https://github.com/rails/solid_cable]
