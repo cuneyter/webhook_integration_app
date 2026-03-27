@@ -37,7 +37,7 @@ gem "solid_cache", "~> 1.0"
 gem "solid_queue", "~> 1.3"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-gem "bcrypt", "~> 3.1.21"
+gem "bcrypt", "~> 3.1.22"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
