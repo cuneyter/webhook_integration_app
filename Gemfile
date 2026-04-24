@@ -52,7 +52,7 @@ gem "bootsnap", require: false
 gem "faraday", "~> 2.14"
 
 # HTTP client library.
-gem "http", "~> 5.3"
+gem "http", "~> 6.0"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
